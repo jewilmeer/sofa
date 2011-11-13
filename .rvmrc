@@ -1,0 +1,5 @@
+if [[ -s "$rvm_path/environments/ruby-1.9.2-p180@sofa-gem" ]] ; then
+  . "$rvm_path/environments/ruby-1.9.2-p180@sofa-gem"
+else
+  rvm --create use "ruby-1.9.2-p180@sofa-gem"
+fi

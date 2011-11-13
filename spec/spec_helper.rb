@@ -1,14 +1,14 @@
-$LOAD_PATH.unshift(File.dirname(__FILE__))
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
-require 'rubygems'
-require 'sofa'
-require 'spec'
-require 'spec/autorun'
+# $LOAD_PATH.unshift(File.dirname(__FILE__))
+# $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
+require "rubygems"
+require "bundler/setup"
 
+require 'sofa'
 require 'fakeweb'
+require 'crack'
 
 FakeWeb.allow_net_connect = false
 
-Spec::Runner.configure do |config|
-  config.mock_with :mocha
+RSpec.configure do |config|
+  config.mock_with :rspec
 end

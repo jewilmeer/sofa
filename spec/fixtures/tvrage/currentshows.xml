@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<currentshows>
+  <country name="US">
+    <show>
+      <showid>69</showid>
+      <showname>Who Wants to Be a Millionaire (US)</showname>
+      <showlink>http://tvrage.com/Who_Wants_to_Be_a_Millionaire_US</showlink>
+    </show>
+    <show>
+      <showid>237</showid>
+      <showname>Jack Van Impe</showname>
+      <showlink>http://tvrage.com/shows/id-237</showlink>
+    </show>
+    <show>
+      <showid>548</showid>
+      <showname>TNA Pay-Per-View</showname>
+      <showlink>http://tvrage.com/TNA_Pay-Per-View</showlink>
+    </show>
+    <show>
+      <showid>701</showid>
+      <showname>Unwrapped</showname>
+      <showlink>http://tvrage.com/Unwrapped</showlink>
+    </show>
+    <show>
+      <showid>783</showid>
+      <showname>Forensic Files</showname>
+      <showlink>http://tvrage.com/Forensic_Files</showlink>
+    </show>
+  </country>
+  <country name="UK">
+    <show>
+      <showid>10928</showid>
+      <showname>DIY SOS</showname>
+      <showlink>http://tvrage.com/DIY_SOS</showlink>
+    </show>
+    <show>
+      <showid>18806</showid>
+      <showname>Horne And Corden</showname>
+      <showlink>http://tvrage.com/Horne_And_Corden</showlink>
+    </show>
+    <show>
+      <showid>677</showid>
+      <showname>I'm a Celebrity, Get Me Out of Here! (UK)</showname>
+      <showlink>http://tvrage.com/Im_a_Celebrity-Get_Me_Out_of_Here_UK</showlink>
+    </show>
+  </country>
+</currentshows>

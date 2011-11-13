@@ -53,7 +53,23 @@ module Sofa
           raise ShowNotFound unless show_info
           id = show_info.split("\n").first.gsub(%r{^Show ID@}, '').strip
           Show.new(id, options)
-        end        
+        end
+
+        # Finds all current shows using TVRage's current shows API.
+        # 
+        # @param country [String] The country to query in (US, UK, NL)
+        # @return [Hash] List of shows currently active
+        # @see http://services.tvrage.com/feeds/currentshows.php
+        def current country='US'
+          xml = get('http://services.tvrage.com/feeds/currentshows.php')
+          country = xml['currentshows']['country'].find {|c| c['name'] == country.upcase }
+          raise CountryNotFound.new 'could not find supplied coutrny' unless country
+          country['show'].map do |show| 
+            s = Show.new(false)
+            s.update_with_mapping show 
+            s
+          end
+        end
       end
 
       include Mapping
@@ -105,12 +121,14 @@ module Sofa
       # @param id [String] The show_id as per the TVRage API
       # @option options [Boolean] :greedy Whether or not to eager load the Season and Episode info
       def initialize(id, options = {})
-        raise RuntimeError.new("id is required") unless (@show_id = id)
-        klass = self.class
-        if options[:greedy]
-          update_with_mapping(@greedy = klass.full_info(@show_id))
-        else
-          update_with_mapping(klass.info(@show_id))
+        raise RuntimeError.new("id is required") unless (@show_id = id || id===false)
+        if id
+          klass = self.class
+          if options[:greedy]
+            update_with_mapping(@greedy = klass.full_info(@show_id))
+          else
+            update_with_mapping(klass.info(@show_id))
+          end
         end
       end
 
@@ -126,6 +144,8 @@ module Sofa
       end
 
       class ShowNotFound < RuntimeError #:nodoc:
+      end
+      class CountryNotFound < RuntimeError #:nodoc:
       end
     end
   end

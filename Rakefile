@@ -1,43 +1,34 @@
-require 'rubygems'
-require 'rake'
+require 'jeweler'
+require './lib/sofa/version'
+Jeweler::Tasks.new do |gem|
+  # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
+  gem.name = "sofa"
+  gem.version = Sofa::Version::STRING
+  gem.summary = %Q{A Ruby library for the TVRage API.}
+  gem.description = %Q{A simple Ruby library for the TVRage API.}
+  gem.email = "henry@qlane.com"
+  gem.homepage = "http://github.com/hsume2/sofa"
+  gem.authors = ["Henry Hsu", "Jan-Willem van der Meer"]
+end
+Jeweler::RubygemsDotOrgTasks.new
 
-begin
-  require 'jeweler'
-  require 'lib/sofa/version'
-  Jeweler::Tasks.new do |gem|
-    gem.name = "sofa"
-    gem.version = Sofa::Version::STRING
-    gem.summary = %Q{A Ruby library for the TVRage API.}
-    gem.description = %Q{A simple Ruby library for the TVRage API.}
-    gem.email = "henry@qlane.com"
-    gem.homepage = "http://github.com/hsume2/sofa"
-    gem.authors = ["Henry Hsu"]
-    gem.add_dependency "httparty"
-    gem.add_development_dependency "rspec", ">= 1.2.9"
-    gem.add_development_dependency "mocha"
-    gem.add_development_dependency "fakeweb"
-    gem.add_development_dependency "yard", ">= 0"
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
-  end
-  Jeweler::GemcutterTasks.new
-rescue LoadError
-  puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
+require 'rspec/core/rake_task'
+
+desc 'Default: run specs.'
+task :default => :spec
+
+desc "Run specs"
+RSpec::Core::RakeTask.new do |t|
+  t.pattern = "./spec/**/*_spec.rb" # don't need this, it's default.
+  # Put spec opts in a file named .rspec in root
 end
 
-require 'spec/rake/spectask'
-Spec::Rake::SpecTask.new(:spec) do |spec|
-  spec.libs << 'lib' << 'spec'
-  spec.spec_files = FileList['spec/**/*_spec.rb']
+desc "Generate code coverage"
+RSpec::Core::RakeTask.new(:coverage) do |t|
+  t.pattern = "./spec/**/*_spec.rb" # don't need this, it's default.
+  t.rcov = true
+  t.rcov_opts = ['--exclude', 'spec']
 end
-
-Spec::Rake::SpecTask.new(:rcov) do |spec|
-  spec.libs << 'lib' << 'spec'
-  spec.pattern = 'spec/**/*_spec.rb'
-  spec.rcov = true
-  spec.rcov_opts = %w{--exclude spec/*,gems/*}
-end
-
-task :spec => :check_dependencies
 
 begin
   require 'reek/adapters/rake_task'
@@ -66,11 +57,11 @@ end
 
 task :default => :spec
 
-begin
-  require 'yard'
-  YARD::Rake::YardocTask.new
-rescue LoadError
-  task :yardoc do
-    abort "YARD is not available. In order to run yardoc, you must: sudo gem install yard"
-  end
-end
+# begin
+#   require 'yard'
+#   YARD::Rake::YardocTask.new
+# rescue LoadError
+#   task :yardoc do
+#     abort "YARD is not available. In order to run yardoc, you must: sudo gem install yard"
+#   end
+# end
