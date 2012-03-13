@@ -8,6 +8,9 @@ A simple Ruby library for the TVRage API (viewable [here](http://services.tvrage
     OR
     show = Sofa::TVRage::Show.new("15614") # => #<Sofa::TVRage::Show:0x1012ec3c0 @name="Chuck", @show_id="15614", ...>
 
+    Get the currently running shows
+    shows = Sofa::TVRage::Show.current     # => [#<Sofa::TVRage::Show:0x101256c0 @name="Chuck", @show_id="15614", ...>, #<Sofa::TVRage::Show:0x1012ec3c0 @name="Castle", @show_id="12345", ...>, ...]
+
 #### Eager loading Season and Episode info
 
     Sofa::TVRage::Show.by_name("Chuck", :greedy => true)
@@ -35,8 +38,8 @@ A simple Ruby library for the TVRage API (viewable [here](http://services.tvrage
 
 ## Seasons
 
-    show.season_list                # => [#<Sofa::TVRage::Season:0x1022d0f98 @no="1", @episodes=[...]>, 
-                                          #<Sofa::TVRage::Season:0x1022c88c0 @no="2", @episodes=[...]>, 
+    show.season_list                # => [#<Sofa::TVRage::Season:0x1022d0f98 @no="1", @episodes=[...]>,
+                                          #<Sofa::TVRage::Season:0x1022c88c0 @no="2", @episodes=[...]>,
                                           ...]
     season = show.season_list.first # => #<Sofa::TVRage::Season:0x1022d0f98 @no="1", @episodes=[...]>
 
@@ -52,7 +55,7 @@ A simple Ruby library for the TVRage API (viewable [here](http://services.tvrage
     show.episode_list                 # => [#<Sofa::TVRage::Episode:0x1022d07a0 @title="Pilot", ...>,
                                             #<Sofa::TVRage::Episode:0x1022cf148 @title="Chuck Versus the Helicopter", ...>,
                                             ...]
-    episode = show.episode_list.first # => #<Sofa::TVRage::Episode:0x1022d07a0 @title="Pilot", ...> 
+    episode = show.episode_list.first # => #<Sofa::TVRage::Episode:0x1022d07a0 @title="Pilot", ...>
 
 #### Attributes
 
@@ -64,7 +67,7 @@ A simple Ruby library for the TVRage API (viewable [here](http://services.tvrage
     episode.link          # => "http://www.tvrage.com/Chuck/episodes/579282"
 
 ## Contributing
- 
+
 * Feel free to send feature/pull requests.
 
 ## Copyright

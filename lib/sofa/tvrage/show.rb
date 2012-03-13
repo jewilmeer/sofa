@@ -56,19 +56,33 @@ module Sofa
         end
 
         # Finds all current shows using TVRage's current shows API.
-        # 
+        #
         # @param country [String] The country to query in (US, UK, NL)
-        # @return [Hash] List of shows currently active
+        # @return [Array] List of shows currently active
         # @see http://services.tvrage.com/feeds/currentshows.php
         def current country='US'
-          xml = get('http://services.tvrage.com/feeds/currentshows.php')
+          xml = get('/feeds/currentshows.php')
           country = xml['currentshows']['country'].find {|c| c['name'] == country.upcase }
           raise CountryNotFound.new 'could not find supplied coutrny' unless country
-          country['show'].map do |show| 
+          country['show'].map do |show|
             s = Show.new(false)
-            s.update_with_mapping show 
+            s.update_with_mapping show
             s
           end
+        end
+
+
+        # Finds all updates in the last 24 hours
+        # @return [Array]
+        # @see http://services.tvrage.com/feeds/last_updates.php
+        def updates
+          xml = get('/feeds/last_updates.php')
+          r = xml['updates']['show'].map do |show|
+            s = Show.new(false)
+            s.update_with_mapping( { :showid => show['id'] } )
+            s
+          end
+          r
         end
       end
 

@@ -158,12 +158,12 @@ module Sofa::TVRage
       end
     end
 
-    describe "#current" do
+    describe "current" do
       let(:xml) { File.read('spec/fixtures/tvrage/currentshows.xml') }
       before do
         FakeWeb.register_uri(:get, "http://services.tvrage.com/feeds/currentshows.php", :body => xml)
       end
-      
+
       context "with default country preference" do
         subject { Show.current }
         it { should have(5).shows }
@@ -181,6 +181,18 @@ module Sofa::TVRage
           expect { Show.current 'NL' }.to raise_error Sofa::TVRage::Show::CountryNotFound
         end
       end
+    end
+
+    describe "updates" do
+      subject { described_class.updates }
+      let(:xml) { File.read('spec/fixtures/tvrage/updates.xml') }
+      before do
+        FakeWeb.register_uri(:get, 'http://services.tvrage.com/feeds/last_updates.php', :body => xml)
+      end
+
+      it { should respond_to :each }
+      it { should have(10).shows }
+      its(:first) { should be_an_instance_of Show }
     end
   end
 end
