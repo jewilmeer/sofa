@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Sofa by jewilmeer</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/jewilmeer/sofa">Fork On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/jewilmeer/sofa/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/jewilmeer/sofa/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Sofa</h1>
+          <p>A Ruby library for the TVRage API.</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/jewilmeer">jewilmeer</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/#!/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h1>Sofa</h1>
+
+<p>A simple Ruby library for the TVRage API (viewable <a href="http://services.tvrage.com/index.php?page=public">here</a>).</p>
+
+<h2>Shows</h2>
+
+<pre><code>Sofa::TVRage::Show.by_name("Chuck")    # =&gt; #&lt;Sofa::TVRage::Show:0x101360d38 @name="Chuck", @show_id="15614", ...&gt;
+OR
+show = Sofa::TVRage::Show.new("15614") # =&gt; #&lt;Sofa::TVRage::Show:0x1012ec3c0 @name="Chuck", @show_id="15614", ...&gt;
+
+Get the currently running shows
+shows = Sofa::TVRage::Show.current     # =&gt; [#&lt;Sofa::TVRage::Show:0x101256c0 @name="Chuck", @show_id="15614", ...&gt;, #&lt;Sofa::TVRage::Show:0x1012ec3c0 @name="Castle", @show_id="12345", ...&gt;, ...]
+</code></pre>
+
+<h4>Eager loading Season and Episode info</h4>
+
+<pre><code>Sofa::TVRage::Show.by_name("Chuck", :greedy =&gt; true)
+Sofa::TVRage::Show.new("15614", :greedy =&gt; true)
+</code></pre>
+
+<h4>Attributes</h4>
+
+<pre><code>show.show_id        # =&gt; "15614"
+show.name           # =&gt; "Chuck"
+show.show_link      # =&gt; "<a href="http://tvrage.com/Chuck">http://tvrage.com/Chuck</a>"
+show.started        # =&gt; "2007"
+show.network        # =&gt; "NBC"
+show.air_time       # =&gt; "20:00"
+show.time_zone      # =&gt; "GMT-5 -DST"
+show.run_time       # =&gt; "60"
+show.origin_country # =&gt; "US"
+show.air_day        # =&gt; "Monday"
+show.ended          # =&gt; nil
+show.classification # =&gt; "Scripted"
+show.seasons        # =&gt; "3"
+show.start_date     # =&gt; "Sep/24/2007"
+show.status         # =&gt; "Returning Series"
+show.genres         # =&gt; ["Action", "Comedy", "Drama"]
+show.akas           # =&gt; "Chuck"
+</code></pre>
+
+<h2>Seasons</h2>
+
+<pre><code>show.season_list                # =&gt; [#&lt;Sofa::TVRage::Season:0x1022d0f98 @no="1", @episodes=[...]&gt;,
+                                      #&lt;Sofa::TVRage::Season:0x1022c88c0 @no="2", @episodes=[...]&gt;,
+                                      ...]
+season = show.season_list.first # =&gt; #&lt;Sofa::TVRage::Season:0x1022d0f98 @no="1", @episodes=[...]&gt;
+</code></pre>
+
+<h4>Attributes</h4>
+
+<pre><code>season.episodes                 # =&gt; [#&lt;Sofa::TVRage::Episode:0x1022d07a0 @title="Pilot", ...&gt;,
+                                      #&lt;Sofa::TVRage::Episode:0x1022cf148 @title="Chuck Versus the Helicopter", ...&gt;,
+                                      ...]
+season.no                       # =&gt; "1"
+</code></pre>
+
+<h2>Episodes</h2>
+
+<pre><code>show.episode_list                 # =&gt; [#&lt;Sofa::TVRage::Episode:0x1022d07a0 @title="Pilot", ...&gt;,
+                                        #&lt;Sofa::TVRage::Episode:0x1022cf148 @title="Chuck Versus the Helicopter", ...&gt;,
+                                        ...]
+episode = show.episode_list.first # =&gt; #&lt;Sofa::TVRage::Episode:0x1022d07a0 @title="Pilot", ...&gt;
+</code></pre>
+
+<h4>Attributes</h4>
+
+<pre><code>episode.title         # =&gt; "Pilot"
+episode.air_date      # =&gt; "2007-09-24"
+episode.num_in_season # =&gt; "01"
+episode.num           # =&gt; "1"
+episode.prod_num      # =&gt; "101"
+episode.link          # =&gt; "<a href="http://www.tvrage.com/Chuck/episodes/579282">http://www.tvrage.com/Chuck/episodes/579282</a>"
+</code></pre>
+
+<h2>Contributing</h2>
+
+<ul>
+<li>Feel free to send feature/pull requests.</li>
+</ul><h2>Copyright</h2>
+
+<p>Copyright (c) 2009 Henry Hsu. See LICENSE for details.</p>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+  </body>
+</html>
